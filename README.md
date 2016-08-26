@@ -15,7 +15,7 @@ Generate user avatar using name initials letter.
 Via Composer
 
 ``` bash
-$ composer require yohang88/letter-avatar
+$ composer require symforge/letter-avatar
 ```
 
 ### Implementation
