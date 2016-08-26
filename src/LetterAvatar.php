@@ -141,9 +141,6 @@ class LetterAvatar
      */
     public function setFont($font)
     {
-		// if only filename given, search on local folder (repo) otherwise it is full-path
-		if(strpos($font, '/') === FALSE)
-			$font = __DIR__ . '/fonts/'.$font;
         $this->font = $font;
     }
     
@@ -198,10 +195,14 @@ class LetterAvatar
             $canvas = $this->image_manager->canvas(480, 480, $color);
         }
         
-        $ufont = $this->getFont();
+        $ufont = $this->font;
 
-        $canvas->text($this->name_initials, 240, 240, function ($font) use (&$ufont) {
-            $font->file((!is_null($ufont)) ? $uFont : __DIR__ . '/fonts/arial-bold.ttf');
+        $canvas->text($this->name_initials, 240, 240, function ($font) use ($ufont) {
+            if(!is_null($ufont) && strpos($ufont, '/') === FALSE)
+                $ufont = __DIR__ . '/fonts/'.$ufont;
+            else
+                $ufont = __DIR__ . '/fonts/arial-bold.ttf';
+            $font->file($ufont);
             $font->size(220);
             $font->color('#ffffff');
             $font->valign('middle');
