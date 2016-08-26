@@ -200,7 +200,7 @@ class LetterAvatar
         
         $ufont = $this->getFont();
 
-        $canvas->text($this->name_initials, 240, 240, function ($font) use ($ufont) {
+        $canvas->text($this->name_initials, 240, 240, function ($font) use (&$ufont) {
             $font->file((!is_null($ufont)) ? $uFont : __DIR__ . '/fonts/arial-bold.ttf');
             $font->size(220);
             $font->color('#ffffff');
