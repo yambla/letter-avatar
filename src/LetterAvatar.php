@@ -28,6 +28,17 @@ class LetterAvatar
      * @var int
      */
     protected $size;
+    
+    /**
+     * @var array
+     */
+    protected $colors;
+    
+    /**
+     * @var string
+     */
+    protected $font = null;
+
 
     /**
      * @var ImageManager
@@ -35,12 +46,13 @@ class LetterAvatar
     protected $image_manager;
 
 
-    public function __construct($name, $shape = 'circle', $size = '48')
+    public function __construct($name, $shape = 'circle', $size = '48', array $colors = [])
     {
         $this->setName($name);
         $this->setImageManager(new ImageManager());
         $this->setShape($shape);
         $this->setSize($size);
+        $this->setColors($colors);
     }
 
     /**
@@ -107,6 +119,41 @@ class LetterAvatar
         $this->size = $size;
     }
 
+    /**
+     * @param array $size
+     */
+    public function setColors(array $colors)
+    {
+        $this->colors = $colors;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getColors()
+    {
+        return $this->colors;
+    }
+
+
+    /**
+     * @param array $size
+     */
+    public function setFont($font)
+    {
+		// if only filename given, search on local folder (repo) otherwise it is full-path
+		if(strpos($font, '/') === FALSE)
+			$font = __DIR__ . '/fonts/'.$font;
+        $this->font = $font;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getFont()
+    {
+        return $this->font;
+    }
 
     /**
      * @return \Intervention\Image\Image
@@ -126,10 +173,13 @@ class LetterAvatar
             $number_of_word++;
         }
 
-        $colors = [
-            "#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50",
-            "#f1c40f", "#e67e22", "#e74c3c", "#ecf0f1", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d",
-        ];
+		if(empty($this->getColors()))
+			$colors = [
+				"#1abc9c", "#2ecc71", "#3498db", "#9b59b6", "#34495e", "#16a085", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50",
+				"#f1c40f", "#e67e22", "#e74c3c", "#a5a8a8", "#95a5a6", "#f39c12", "#d35400", "#c0392b", "#bdc3c7", "#7f8c8d",
+			];
+		else
+			$colors = $this->getColors();
 
         $char_index  = ord($this->name_initials[0]) - 64;
         $color_index = $char_index % 20;
@@ -147,9 +197,11 @@ class LetterAvatar
 
             $canvas = $this->image_manager->canvas(480, 480, $color);
         }
+        
+        $ufont = $this->getFont();
 
-        $canvas->text($this->name_initials, 240, 240, function ($font) {
-            $font->file(__DIR__ . '/fonts/arial-bold.ttf');
+        $canvas->text($this->name_initials, 240, 240, function ($font) use ($ufont) {
+            $font->file((!is_null($ufont)) ? $uFont : __DIR__ . '/fonts/arial-bold.ttf');
             $font->size(220);
             $font->color('#ffffff');
             $font->valign('middle');

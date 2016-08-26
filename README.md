@@ -30,6 +30,13 @@ $avatar = new LetterAvatar('Steven Spielberg');
 // Square Shape, Size 64px
 $avatar = new LetterAvatar('Steven Spielberg', 'square', 64);
 
+// Improved version:
+
+$avatar = new LetterAvatar('Steven Spielberg', 'square', 64, ['#000000', '#dcdcdc']);
+$avatar->setFont('OpenSans-Regular.ttf'); // you can use only filenames if you intend to use our own repo fonts otherwise
+										  // use full relative path to your font.
+$avatar->setColors(['#000000', '#dcdcdc', ....]); // you can pass this from constructor.
+
 
 ```
 
