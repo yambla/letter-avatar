@@ -44,6 +44,22 @@ class LetterAvatar
      * @var ImageManager
      */
     protected $image_manager;
+    
+    /**
+     * @var array
+     */
+    protected $numbers = array(
+		1 => 'F',
+		2 => 'H',
+		3 => 'Q',
+		4 => 'V',
+		5 => 'Y',
+		6 => 'Z',
+		7 => 'O',
+		8 => 'B',
+		9 => 'C',
+		0 => 'X',
+    );
 
 
     public function __construct($name, $shape = 'circle', $size = '48', array $colors = [])
@@ -178,7 +194,7 @@ class LetterAvatar
 		else
 			$colors = $this->getColors();
 
-        $char_index  = ord(preg_replace('/[0-9]+/', '', md5($this->name_initials[0]))) - 64;
+        $char_index  = ord(strtr($this->name_initials[0], $this->numbers)) - 64;
         $color_index = $char_index % 20;
         $color       = $colors[$color_index];
 
