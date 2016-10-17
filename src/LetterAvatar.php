@@ -185,7 +185,12 @@ class LetterAvatar
 
         if ($this->shape == 'circle') {
             $canvas = $this->image_manager->canvas(480, 480);
-            $canvas->circle(455, 255, 240, function ($draw) use ($color) {
+            if($number_of_word == 2) {
+				$in = 235;
+			} else {
+				$in = 245;
+			}
+			$canvas->circle(455, $in, 240, function ($draw) use ($color) {
                 $draw->background($color);
             });
 
