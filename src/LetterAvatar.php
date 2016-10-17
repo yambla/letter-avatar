@@ -178,7 +178,7 @@ class LetterAvatar
 		else
 			$colors = $this->getColors();
 
-        $char_index  = ord($this->name_initials[0]) - 64;
+        $char_index  = ord(md5($this->name_initials[0])) - 64;
         $color_index = $char_index % 20;
         $color       = $colors[$color_index];
 
