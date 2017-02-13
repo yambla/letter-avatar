@@ -44,22 +44,6 @@ class LetterAvatar
      * @var ImageManager
      */
     protected $image_manager;
-    
-    /**
-     * @var array
-     */
-    protected $numbers = array(
-		1 => 'F',
-		2 => 'H',
-		3 => 'Q',
-		4 => 'V',
-		5 => 'Y',
-		6 => 'Z',
-		7 => 'O',
-		8 => 'B',
-		9 => 'C',
-		0 => 'X',
-    );
 
 
     public function __construct($name, $shape = 'circle', $size = '48', array $colors = [])
