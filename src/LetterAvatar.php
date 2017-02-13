@@ -194,9 +194,10 @@ class LetterAvatar
 		else
 			$colors = $this->getColors();
 
-        $char_index  = ord(strtr($this->name_initials[0], $this->numbers)) - 64;
-        $color_index = $char_index % 20;
-        $color       = $colors[$color_index];
+        $color_length = count($colors);
+        $color_number = hexdec(substr(md5($this->name), 16));
+        $color_index  = (int)fmod($color_number, $color_length);
+        $color        = $colors[$color_index];
 
 
         if ($this->shape == 'circle') {
